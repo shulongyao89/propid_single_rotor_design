@@ -1,0 +1,88 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+clc
+clear all
+close all
+
+tic
+input.filename = 'SUMR-25_v3.in';
+
+% Change propid.in file
+fid = fopen('propid.in','w');
+fprintf(fid,input.filename);
+fclose(fid);
+
+%% Design conditions
+input.Vavg_mps = 9.0;               % average operating wind speed 
+input.Vrated_mps = 10.5;            % rated speed 
+input.TSR = 9.25;                   % tip speed ratio
+input.blades = 2;                   % blades
+input.Cl_rR75pct = 1.25;            % design Cl at the 75% chord location --> input from aero
+input.hub_m = 3.75;                 % hub radius
+input.hub_height_m = 250;           % hub height
+input.Vcutin_mps = 5;               % cut in wind speed
+input.Vcutout_mps = 25;             % cout out wind speed
+input.Pdes_kW = 25000;              % design power after rated speed
+input.cone_deg = 22.5;               % design cone angle
+input.axialind = 0.333;             % design axial induction
+
+input.fixedmoment_flag = 0;         % 0 - dont fix moments; 1 - fix root moments
+input.moment_ftlb = 5.000e7 / cosd(input.cone_deg) ^ 2;     % Moments to fix
+
+input.power_kW = input.Pdes_kW / cosd(input.cone_deg) ^ 3;
+
+cd Tools
+[input.rho_slugspft3,a,T,P,nu,z] = atmos(input.hub_height_m,'units','US');
+cd ..
+
+input.Vavg_mph = input.Vavg_mps * 2.23694;
+input.Vrated_mph = input.Vrated_mps * 2.23694;
+input.Vcutin_mph = input.Vcutin_mps * 2.23694;
+input.Vcutout_mph = input.Vcutout_mps * 2.23694;
+input.Vavg_ftps = input.Vavg_mps * 3.28084;
+input.Vrated_ftps = input.Vrated_mps * 3.28084;
+input.Vavg_tip_ftps = input.TSR / (cosd(input.cone_deg)) * input.Vavg_mps * 3.28084;
+input.Vrated_tip_ftps = input.TSR / (cosd(input.cone_deg)) * input.Vrated_mps * 3.28084;
+input.hub_ft = input.hub_m * 3.28084;
+input.tol1 = 0.25;
+input.tol2 = 0.25;
+input.tol_restart_flag = 0;
+input.multiplier = 0.95;
+
+createPROPIDOptimizerFile(input.filename,input);
+count = 0;
+while input.tol1 > 0.0001
+    count = count + 1;
+    dos('propid54-64bit.exe');                  % runs PROPID with 50 iterations
+    input = updatePROPIDOptimizerFile(input.filename,input,count);
+
+    input
+    
+    % Break criteria
+    if input.fixedmoment_flag == 1
+        if (abs(input.moment_diff) < 0.1 && abs(input.a_diff) <  0.01)
+            break;
+        end
+    else
+        if abs(input.a_diff) <  0.001
+            break;
+        end
+    end
+end
+count
+
+sprintf('Calculation Time: %f mins', toc / 60)
+
+[input] = make_AD14_inputfile_function(input);
+[input] = make_AD15_inputfile_function(input);
+
+
+%%% Move propid files
+files_to_move = dir('ftn*');
+for ii = 1:numel(files_to_move)
+    movefile(sprintf('%s\\%s',pwd,files_to_move(ii).name),sprintf('%s\\PROPIDOutputFiles\\',pwd))
+end
+movefile(sprintf('%s\\gaep.dat',pwd),sprintf('%s\\PROPIDOutputFiles\\',pwd))
+
+
+
+
