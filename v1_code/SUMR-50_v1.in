@@ -83,8 +83,8 @@ TIPMODE 2
 
 # Use this for automatic convergence
 ITERMAX 200
-TOLSP1 0.00125
-TOLSP2 0.00125
+TOLSP1 0.00190
+TOLSP2 0.00190
 
 # Stage 1 - Avg wind speed RPM
 # Iterate on the RPM(DP1) to get a tip speed of 

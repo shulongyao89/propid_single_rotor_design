@@ -18,11 +18,11 @@ input.TSR = 9.25;                   % tip speed ratio
 input.blades = 2;                   % blades
 input.Cl_rR75pct = 1.25;            % design Cl at the 75% chord location --> input from aero
 input.hub_m = 3.75;                 % hub radius
-input.hub_height_m = 250;           % hub height
+input.hub_height_m = 500;           % hub height
 input.Vcutin_mps = 5;               % cut in wind speed
 input.Vcutout_mps = 25;             % cout out wind speed
 input.Pdes_kW = 25000;              % design power after rated speed
-input.cone_deg = 12.5;               % design cone angle
+input.cone_deg = 22.5;               % design cone angle
 input.axialind = 0.333;             % design axial induction
 
 input.fixedmoment_flag = 0;         % 0 - dont fix moments; 1 - fix root moments
@@ -43,8 +43,8 @@ input.Vrated_ftps = input.Vrated_mps * 3.28084;
 input.Vavg_tip_ftps = input.TSR / (cosd(input.cone_deg)) * input.Vavg_mps * 3.28084;
 input.Vrated_tip_ftps = input.TSR / (cosd(input.cone_deg)) * input.Vrated_mps * 3.28084;
 input.hub_ft = input.hub_m * 3.28084;
-input.tol1 = 0.25;
-input.tol2 = 0.25;
+input.tol1 = 10;
+input.tol2 = 10;
 input.tol_restart_flag = 0;
 input.multiplier = 0.95;
 

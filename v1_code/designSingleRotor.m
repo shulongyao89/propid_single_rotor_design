@@ -4,7 +4,7 @@ clear all
 close all
 
 tic
-input.filename = 'SUMR-25_v3.in';
+input.filename = 'SUMR-50_v1.in';
 
 % Change propid.in file
 fid = fopen('propid.in','w');
@@ -18,10 +18,10 @@ input.TSR = 9.25;                   % tip speed ratio
 input.blades = 2;                   % blades
 input.Cl_rR75pct = 1.25;            % design Cl at the 75% chord location --> input from aero
 input.hub_m = 3.75;                 % hub radius
-input.hub_height_m = 250;           % hub height
+input.hub_height_m = 500;           % hub height
 input.Vcutin_mps = 5;               % cut in wind speed
 input.Vcutout_mps = 25;             % cout out wind speed
-input.Pdes_kW = 25000;              % design power after rated speed
+input.Pdes_kW = 50000;              % design power after rated speed
 input.cone_deg = 22.5;               % design cone angle
 input.axialind = 0.333;             % design axial induction
 
@@ -43,14 +43,14 @@ input.Vrated_ftps = input.Vrated_mps * 3.28084;
 input.Vavg_tip_ftps = input.TSR / (cosd(input.cone_deg)) * input.Vavg_mps * 3.28084;
 input.Vrated_tip_ftps = input.TSR / (cosd(input.cone_deg)) * input.Vrated_mps * 3.28084;
 input.hub_ft = input.hub_m * 3.28084;
-input.tol1 = 0.25;
-input.tol2 = 0.25;
+input.tol1 = 1;
+input.tol2 = 1;
 input.tol_restart_flag = 0;
 input.multiplier = 0.95;
 
 createPROPIDOptimizerFile(input.filename,input);
 count = 0;
-while input.tol1 > 0.0001
+while input.tol1 > 0.002
     count = count + 1;
     dos('propid54-64bit.exe');                  % runs PROPID with 50 iterations
     input = updatePROPIDOptimizerFile(input.filename,input,count);
@@ -79,7 +79,11 @@ sprintf('Calculation Time: %f mins', toc / 60)
 %%% Move propid files
 files_to_move = dir('ftn*');
 for ii = 1:numel(files_to_move)
-    movefile(sprintf('%s\\%s',pwd,files_to_move(ii).name),sprintf('%s\\PROPIDOutputFiles\\',pwd))
+    try
+        movefile(sprintf('%s\\%s',pwd,files_to_move(ii).name),sprintf('%s\\PROPIDOutputFiles\\',pwd))
+    catch
+        
+    end
 end
 movefile(sprintf('%s\\gaep.dat',pwd),sprintf('%s\\PROPIDOutputFiles\\',pwd))
 

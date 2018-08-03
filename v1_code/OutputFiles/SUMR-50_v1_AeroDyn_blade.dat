@@ -1,5 +1,5 @@
 ------- AERODYN v15.00.* BLADE DEFINITION INPUT FILE -------------------------------------
-SUMR-25_v3 blade aerodynamic parameters
+SUMR-50_v1 blade aerodynamic parameters
 ======  Blade Properties =================================================================
          11   NumBlNds           - Number of blade nodes used in the analysis (-)
   BlSpn        BlCrvAC        BlSwpAC        BlCrvAng       BlTwist        BlChord          BlAFID

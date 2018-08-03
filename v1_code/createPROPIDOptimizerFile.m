@@ -22,7 +22,7 @@ fprintf(fid,'CONE %3.1f           # cone angle of rotor (deg)\n',input.cone_deg)
 fprintf(fid,'\n');
 fprintf(fid,sprintf('RHO        %7.6f\n',input.rho_slugspft3));
 fprintf(fid,'HUB     0.025039978\n');
-fprintf(fid,'RD    327.560186\n');
+fprintf(fid,'RD    650.560186\n');
 fprintf(fid,'CH_TW\n');
 fprintf(fid,'    0.030584      6.0000\n');
 fprintf(fid,'    0.044776     23.6093\n');

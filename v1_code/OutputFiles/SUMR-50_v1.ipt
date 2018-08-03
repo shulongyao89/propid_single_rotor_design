@@ -1,5 +1,5 @@
 --------- AeroDyn v14.04.* INPUT FILE -------------------------------------------------------------------------
-SUMR-25_v3.in aerodynamic parameters
+SUMR-50_v1.in aerodynamic parameters
 "STEADY"      StallMod     - Dynamic stall included [BEDDOES or STEADY] (unquoted string)
 "NO_CM"       UseCm        - Use aerodynamic pitching moment model? [USE_CM or NO_CM] (unquoted string)
 "EQUIL"       InfModel     - Inflow model [DYNIN or EQUIL] (unquoted string)
