@@ -97,7 +97,16 @@ end
 if input.tol_restart_flag == 1 && input.tol2 > 0.001
     input.tol1 = 5;
 end
-% input.tol1 = 5;
+
+% Extract rotation rates 
+% Avg rpm
+dp1 = strsplit(updated{51});
+dp2 = strsplit(updated{52});
+
+input.omega_avg_RPM = str2double(dp1(3));
+input.pitch_deg = str2double(dp1(4));
+input.omega_rated_RPM = str2double(dp2(3));
+
 % Write updated file
 fid = fopen(filename,'w');
 for ii = 1:numel(data)

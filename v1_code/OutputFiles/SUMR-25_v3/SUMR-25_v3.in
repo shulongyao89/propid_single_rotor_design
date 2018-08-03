@@ -17,19 +17,19 @@ BN 2                # blade number
 CONE 22.5           # cone angle of rotor (deg)
 
 RHO        0.002342
-HUB     0.016134974
-RD    762.514399
+HUB     0.021812195
+RD    564.049136
 CH_TW
-    0.040394      6.0000
-    0.054586     23.6093
-    0.069339     10.3636
-    0.055188      5.3126
-    0.046336      2.7531
-    0.040420      1.0579
-    0.035349      0.3831
-    0.031272      0.0000
-    0.027314     -0.3342
-    0.018835     -0.5405
+    0.033438      6.0000
+    0.047630     23.6093
+    0.062383     10.6392
+    0.048232      5.5444
+    0.036282      3.3159
+    0.031088      1.4969
+    0.027361      0.5746
+    0.024316      0.0000
+    0.020888     -0.4294
+    0.013972     -0.7112
 AIRFOIL_MODE    4
  10
 F1_v1/cylinder-type4.pd
@@ -54,7 +54,7 @@ F1_v1/F1-1882-0041.pd
   0.188 11.750  3.000
 AIRFOIL_FAMILY   12
     0.0000   1    1.0000
-    0.058067487   1    0.9419
+    0.060906098   1    0.9391
     0.1500   2    0.8500
     0.2500   3    0.7500
     0.3500   4    0.6500
@@ -72,8 +72,8 @@ USE_AIRFOIL_FAMILY    1
 # The blade pitch of the first line is iterated for Cl(8).
 # The blade pitch for the second DP is not used, hence 999.
 #        RPM     pitch    speed   mph
-DP   1   3.7023019   0.1793709  20.1324600  2
-DP   2   4.3194566 999.0000000  23.4878700  2
+DP   1   5.0049869   0.9979399  20.1324600  2
+DP   2   5.8392925 999.0000000  23.4878700  2
 
 # Enforce tip loss model to always be on
 TIPON
@@ -83,8 +83,8 @@ TIPMODE 2
 
 # Use this for automatic convergence
 ITERMAX 200
-TOLSP1 0.00125
-TOLSP2 0.00125
+TOLSP1 0.00318
+TOLSP2 0.00318
 
 # Stage 1 - Avg wind speed RPM
 # Iterate on the RPM(DP1) to get a tip speed of 
@@ -117,7 +117,7 @@ IDES
 # Iterate on the rotor scale.
 # Remember to also update the FIXPD line below to 
 # crop the power curve at this set level.
-NEWT1IDP 200   63405.07 2 1 2     1 1 999    1.05
+NEWT1IDP 200   31702.53 2 1 2     1 1 999    1.05
 IDES
 
 # Stage 4
@@ -172,7 +172,7 @@ IDES
 #                 | <CLAMP1(.)> | <TOL1(.)>
 #                  500   local Cl of blade
 #  Using --->      501   local a
-NEWT1LDP 501 8 0.3330   1 1 1   2 999 100   .02
+NEWT1LDP 501 8 0.2250   1 1 1   2 999 100   .02
 IDES
 
 # Stage 8
@@ -218,7 +218,7 @@ WIND_SWEEP 20.132  20.132  1  2
 WRITE_FILES  45
 
 # Determine the rotor power and thrust curves (2D_SWEEP)
-FIXPD  63405.07 1
+FIXPD  31702.53 1
 PITCH_DP 1
 TSR_SWEEP 9.3  9.3 0
 WIND_SWEEP 5  60  0.25  2

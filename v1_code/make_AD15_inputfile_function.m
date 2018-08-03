@@ -58,7 +58,8 @@ for ii = 2:numel(c_af_m)
 end
 fclose(fid);
 
-movefile(sprintf('%s\\%s_AeroDyn_blade.dat',pwd,input.filename(1:end-3)),sprintf('%s\\OutputFiles',pwd))
+movefile(sprintf('%s\\%s_AeroDyn_blade.dat',pwd,input.filename(1:end-3)),...
+    sprintf('%s\\OutputFiles\\%s',pwd,input.filename(1:end-3)))
 
 
 % figure(1)

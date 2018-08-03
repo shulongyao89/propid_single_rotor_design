@@ -52,28 +52,6 @@ for ii = 1:numel(RNodes)
         DRNodes(ii) = (RNodes(ii) - sum(DRNodes)- hub_radius_m)*2;
     end
 end
-        
-% for ii = 1:numel(RNodes)
-%     if ii == 1
-%         DRNodes(ii) = 0.1*R_m-hub_radius_m;
-%     else
-%         DRNodes(ii) = (r_R_af(5)-r_R_af(4))*R_m;
-%     end
-% end
-
-% figure(2)
-% set(gcf, 'Position', [50 100 1000 400]);
-% hold on
-% plot(r_m,c_m,'b-','LineWidth',1.5)
-% plot([hub_radius_m hub_radius_m],[0 c_hub_m],'k','LineWidth',1.5)
-% plot(RNodes,Chord/2,'go')
-% % plot(r_seg_end_m,c_seg_end_m/2,'g^')
-% grid on
-% set(gca,'GridLineStyle','-');
-% ylim([0 20]);
-% xlim([0 110]);
-% daspect([0.3/20*110/2 1 1]);
-% legend('Original Design','Hub','Node Centers New (v14)')
 
 %% Make Aerodyne Blade File
 fid = fopen(sprintf('%s.ipt',input.filename(1:end-3)),'w');
@@ -117,5 +95,5 @@ Design_R_m = R_m
 
 input.AD14_R_m = sum(DRNodes)+hub_radius_m;
 
-movefile(sprintf('%s\\%s.ipt',pwd,input.filename(1:end-3)),sprintf('%s\\OutputFiles',pwd))
+movefile(sprintf('%s\\%s.ipt',pwd,input.filename(1:end-3)),sprintf('%s\\OutputFiles\\%s',pwd,input.filename(1:end-3)))
 
